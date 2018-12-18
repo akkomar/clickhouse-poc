@@ -42,10 +42,16 @@ Clickhouse role is included as subtree, to update run:
 git subtree pull --prefix roles/ansible-clickhouse git@github.com:AlexeySetevoi/ansible-clickhouse.git master --squash 
 ```
 
-
+## Clickhouse datasource for Grafana
+```
+gcloud compute --project "clickhouse-dev" ssh --zone "us-west1-a" "grafana-1-vm"
+sudo /usr/sbin/grafana-cli plugins install vertamedia-clickhouse-datasource
+sudo service grafana-server restart
+```
 
 
 ## Useful resources
 * https://cloud.google.com/community/tutorials/getting-started-on-gcp-with-terraform
 * https://alex.dzyoba.com/blog/terraform-ansible/
 * http://chrisarges.net/2018/01/05/using-terraform-and-ansible.html
+* https://grafana.com/plugins/vertamedia-clickhouse-datasource

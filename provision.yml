@@ -3,4 +3,14 @@
   gather_facts: yes
   become: yes
   roles:
-  - ansible-clickhouse 
+    - ansible-clickhouse
+  vars:
+    clickhouse_listen_host_custom:
+      - "{{ansible_default_ipv4.address}}"
+    clickhouse_networks_default:
+      - "::1"
+      - "127.0.0.1"
+      - "10.32.0.0/8"
+  tasks:
+    - debug: var=ansible_all_ipv4_addresses
+    - debug: var=ansible_default_ipv4.address
