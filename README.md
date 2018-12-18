@@ -30,3 +30,9 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i terraform_inventory.sh provision.yml
 ```
 
+### Updating role
+Clickhouse role is included as subtree, to update run:
+```
+git subtree pull --prefix roles/ansible-clickhouse git@github.com:AlexeySetevoi/ansible-clickhouse.git master --squash 
+```
+
