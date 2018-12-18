@@ -23,6 +23,12 @@ Cleaning up:
 terraform destroy
 ```
 
+## Install terraform-ansible dynamic inventory plugin
+```
+git clone https://github.com/mantl/terraform.py
+pip install ./terraform.py
+cp terraform.py/scripts/terraform_inventory.sh .
+```
 
 ## Install Clickhouse
 ```

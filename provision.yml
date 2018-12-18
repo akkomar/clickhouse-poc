@@ -1,0 +1,6 @@
+---
+- hosts: clickhouse-1
+  gather_facts: yes
+  become: yes
+  roles:
+  - ansible-clickhouse 
