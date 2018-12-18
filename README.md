@@ -42,3 +42,10 @@ Clickhouse role is included as subtree, to update run:
 git subtree pull --prefix roles/ansible-clickhouse git@github.com:AlexeySetevoi/ansible-clickhouse.git master --squash 
 ```
 
+
+
+
+## Useful resources
+* https://cloud.google.com/community/tutorials/getting-started-on-gcp-with-terraform
+* https://alex.dzyoba.com/blog/terraform-ansible/
+* http://chrisarges.net/2018/01/05/using-terraform-and-ansible.html
