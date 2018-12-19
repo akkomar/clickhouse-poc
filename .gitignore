@@ -1,2 +1,4 @@
 .terraform
 provision.retry
+terraform.tfstate
+terraform.tfstate.backup
