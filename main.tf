@@ -12,6 +12,13 @@ resource "random_id" "instance_id" {
  byte_length = 8
 }
 
+resource "google_compute_disk" "clickhouse-data-disk" {
+  name = "clickhouse-data-disk"
+  type = "pd-ssd"
+  zone = "us-west1-a"
+  size = "500"
+}
+
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "default" {
   name         = "clickhouse-1"
@@ -24,11 +31,34 @@ resource "google_compute_instance" "default" {
     }
   }
 
-  metadata {
-    sshKeys = "akomar:${file("~/.ssh/id_rsa.pub")}"
+  attached_disk {
+    source = "${google_compute_disk.clickhouse-data-disk.name}"
+    device_name = "clickhouse-data"
   }
 
-  metadata_startup_script = "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E0C56BD4; echo 'deb http://repo.yandex.ru/clickhouse/deb/stable/ main/' | sudo tee /etc/apt/sources.list.d/clickhouse.list; sudo apt-get update; sudo apt-get install -y  --allow-unauthenticated clickhouse-server clickhouse-client; sudo service clickhouse-server start"
+  connection {
+    type = "ssh"
+    user = "admin"
+    private_key = "${file("~/.ssh/id_rsa")}"
+  }
+
+  provisioner "file" {
+    source      = "script/mount-data-disk.sh"
+    destination = "/tmp/mount-data-disk.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/mount-data-disk.sh",
+      "sudo /tmp/mount-data-disk.sh",
+    ]
+  }
+
+  metadata {
+    sshKeys = "admin:${file("~/.ssh/id_rsa.pub")}"
+  }
+
+  # metadata_startup_script = "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E0C56BD4; echo 'deb http://repo.yandex.ru/clickhouse/deb/stable/ main/' | sudo tee /etc/apt/sources.list.d/clickhouse.list; sudo apt-get update; sudo apt-get install -y  --allow-unauthenticated clickhouse-server clickhouse-client; sudo service clickhouse-server start"
 
   network_interface {
     network = "default"

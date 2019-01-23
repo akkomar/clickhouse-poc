@@ -5,6 +5,8 @@
   roles:
     - ansible-clickhouse
   vars:
+    clickhouse_path_data: "/mnt/disks/clickhouse-data/" #TODO: this should be defined in group_vars
+    clickhouse_path_tmp: "/mnt/disks/clickhouse-data/tmp/" #TODO: this should be defined in group_vars
     clickhouse_listen_host_custom:
       - "{{ansible_default_ipv4.address}}"
     clickhouse_networks_default:
@@ -14,3 +16,4 @@
   tasks:
     - debug: var=ansible_all_ipv4_addresses
     - debug: var=ansible_default_ipv4.address
+    - debug: var=clickhouse_path_data

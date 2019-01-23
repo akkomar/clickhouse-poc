@@ -8,5 +8,5 @@ clickhouse_package:
   - clickhouse-server
 clickhouse_path_configdir: "/etc/clickhouse-server"
 clickhouse_path_logdir: "/var/log/clickhouse-server"
-clickhouse_path_data: "/var/lib/clickhouse/"
-clickhouse_path_tmp: "/var/lib/clickhouse/tmp/"
+clickhouse_path_data: "/mnt/disks/clickhouse-data/"
+clickhouse_path_tmp: "/mnt/disks/clickhouse-data/tmp/"

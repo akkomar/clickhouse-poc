@@ -1,6 +1,11 @@
 #Main installation actions
 #https://clickhouse.yandex/docs/en/getting_started/index.html#installation
 
+- name: Install by APT | Install dirmngr
+  apt:
+    name: dirmngr
+    state: present
+
 - name: Install by APT | Apt-key add repo key
   apt_key:
     keyserver: "{{ clickhouse_repo_keyserver }}"
@@ -12,6 +17,7 @@
     repo: "{{ clickhouse_repo_old }}"
     state: absent
   become: true
+  when: clickhouse_repo_old is defined
 
 - name: Install by APT | Repo installation
   apt_repository:
